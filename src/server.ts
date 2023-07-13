@@ -1,8 +1,20 @@
-import express, { Request, Response } from 'express';
-import { createCourse } from './routes';
+import express from "express";
 
 const app = express();
 
-app.get('/', createCourse)
+const port = 3000;
 
-app.listen(3333);
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  return res.json({ message: "Hello World" });
+});
+
+app.post("/courses", (req, res) => {
+  const { name } = req.body;
+  return res.json({ name });
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
