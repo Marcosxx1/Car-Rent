@@ -1,4 +1,4 @@
-import { CategoriesRepository } from "../repository/CategoriesRepository";
+import { ICategoriesRepository } from "../repository/ICategoriesRepository";
 
 interface IRequest {
   name: string;
@@ -11,7 +11,7 @@ Verificar se existe o atributo no construtor  (private categoriesRepository: Cat
  */
 class CreateCategoryService {
   // eslint-disable-next-line prettier/prettier
-  constructor(private categoriesRepository: CategoriesRepository) { }
+  constructor(private categoriesRepository: ICategoriesRepository) { }
 
   execute({ name, description }: IRequest): void {
     const categoryAlreadyExists = this.categoriesRepository.findByName(name);
