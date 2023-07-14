@@ -13,6 +13,7 @@
 	},
 	"plugins": ["@typescript-eslint", "eslint-plugin-import-helpers","prettier"],
 	"rules": {
+		"object-curly-spacing": ["error", "always"],
 		"prettier/prettier": "error",
 		"camelcase": "off",
 		"import/no-unresolved": "error",
@@ -33,6 +34,7 @@
 		"no-console": "off",
 		"no-useless-constructor": "off",
 		"no-empty-function": "off",
+		"no-use-before-define": ["off", { "variables": false }],
 		"lines-between-class-members": "off",
 		"import/extensions": [
 			"error",
