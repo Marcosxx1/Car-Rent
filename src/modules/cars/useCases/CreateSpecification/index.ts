@@ -1,10 +1,10 @@
-import { CategoriesRepository } from "../../repository/implementations/CategoriesRepository";
+import { SpecificaionRepository } from "../../repository/implementations/SpecificationRepository";
 import { CreateSpecificationUseCase } from "./CreateSpecifiationUseCase";
 import { CreateSpecificationController } from "./CreateSpecificationController";
 
-const categoryRepository = CategoriesRepository.getInstance();
+const specificationRepository = new SpecificaionRepository();
 const createSpecificationUseCase = new CreateSpecificationUseCase(
-  categoryRepository,
+  specificationRepository,
 );
 const createSpecificationController = new CreateSpecificationController(
   createSpecificationUseCase,
