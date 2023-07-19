@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Documentation for car rent",
+    "description": "RESTFull api using Node, typescript and PostgreSQL",
+    "version": "1.0.0",
+    "contact": {
+      "email": "marcosxx1.ma@gmail.com"
+    }
+  }
+}
