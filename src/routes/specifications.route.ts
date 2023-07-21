@@ -6,7 +6,7 @@ import { listCategoriesController } from "../modules/cars/useCases/ListCategorie
 const specificationRoutes = Router();
 
 specificationRoutes.post("/", (req, res) => {
-  createSpecificationController.handle(req, res);
+  return createSpecificationController.handle(req, res);
 });
 
 specificationRoutes.get("/", (req: Request, res: Response) => {
