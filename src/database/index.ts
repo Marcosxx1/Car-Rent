@@ -2,16 +2,18 @@ import "reflect-metadata";
 
 import { DataSource } from "typeorm";
 
+import { Category } from "../modules/cars/model/Category";
+
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "banco",
+  host: "localhost",
   port: 5432,
   username: "postgres",
   password: "postgres",
   database: "rentx",
   synchronize: true,
   logging: false,
-  entities: [],
-  migrations: [],
+  entities: [Category],
+  migrations: ["src/database/migrations/*.ts"], // Correct the path to migrations
   subscribers: [],
 });
