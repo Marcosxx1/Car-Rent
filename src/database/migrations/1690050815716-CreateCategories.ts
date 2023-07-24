@@ -4,7 +4,7 @@ import { MigrationInterface, QueryRunner, Table } from "typeorm";
 export class CreateCategories1690050815716 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
-            new Table({
+            new Table({  
                 name: "categories",
                 columns: [
                     {

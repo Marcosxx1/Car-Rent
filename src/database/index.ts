@@ -2,7 +2,7 @@ import "reflect-metadata";
 
 import { DataSource } from "typeorm";
 
-import { Category } from "../modules/cars/model/Category";
+import { Category } from "../modules/cars/entities/Category";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
