@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only --inspect --ignore-watch node_modules --respawn --poll src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
+    "createMig": "ts-node create-migration.ts"
   },
   "repository": {
     "type": "git",
