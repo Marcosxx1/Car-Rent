@@ -5,10 +5,10 @@ import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 class CreateCategoryController {
   // eslint-disable-next-line prettier/prettier
   constructor(private createCategoriesUseCase: CreateCategoryUseCase) { }
-  handle(req: Request, res: Response): Response {
+  async handle(req: Request, res: Response): Promise<Response> {
     const { name, description } = req.body;
+    await this.createCategoriesUseCase.execute({ name, description });
 
-    this.createCategoriesUseCase.execute({ name, description });
     return res.status(201).send();
   }
 }
