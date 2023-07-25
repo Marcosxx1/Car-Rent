@@ -6,7 +6,7 @@ import { Category } from "../modules/cars/entities/Category";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
+  host: "banco",
   port: 5432,
   username: "postgres",
   password: "postgres",
@@ -14,6 +14,14 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: false,
   entities: [Category],
-  migrations: ["src/database/migrations/*.ts"], // Correct the path to migrations
+  migrations: ["src/database/migrations/*.ts"],
   subscribers: [],
 });
+
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Data Source has been initialized!");
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization", err);
+  });
