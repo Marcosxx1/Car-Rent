@@ -4,24 +4,42 @@
 		"node": true,
 		"jest": true
 	},
-	"extends": ["airbnb-base", "plugin:@typescript-eslint/recommended", "prettier",
-	"plugin:prettier/recommended"],
+	"extends": [
+		"airbnb-base",
+		"plugin:@typescript-eslint/recommended",
+		"prettier",
+		"plugin:prettier/recommended"
+	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": 12,
 		"sourceType": "module"
 	},
-	"plugins": ["@typescript-eslint", "eslint-plugin-import-helpers","prettier"],
+	"plugins": [
+		"@typescript-eslint",
+		"eslint-plugin-import-helpers",
+		"prettier"
+	],
 	"rules": {
-		"object-curly-spacing": ["error", "always"],
-		"prettier/prettier": "error",
+		"object-curly-spacing": [
+			"error",
+			"always"
+		],
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto"
+			}
+		],
 		"camelcase": "off",
 		"import/no-unresolved": "error",
 		"@typescript-eslint/naming-convention": [
 			"error",
 			{
 				"selector": "interface",
-				"format": ["PascalCase"],
+				"format": [
+					"PascalCase"
+				],
 				"custom": {
 					"regex": "^I[A-Z]",
 					"match": true
@@ -34,7 +52,12 @@
 		"no-console": "off",
 		"no-useless-constructor": "off",
 		"no-empty-function": "off",
-		"no-use-before-define": ["off", { "variables": false }],
+		"no-use-before-define": [
+			"off",
+			{
+				"variables": false
+			}
+		],
 		"lines-between-class-members": "off",
 		"import/extensions": [
 			"error",
@@ -47,13 +70,28 @@
 			"warn",
 			{
 				"newlinesBetween": "always",
-				"groups": ["module", "/^@shared/", ["parent", "sibling", "index"]],
-				"alphabetize": { "order": "asc", "ignoreCase": true }
+				"groups": [
+					"module",
+					"/^@shared/",
+					[
+						"parent",
+						"sibling",
+						"index"
+					]
+				],
+				"alphabetize": {
+					"order": "asc",
+					"ignoreCase": true
+				}
 			}
 		],
 		"import/no-extraneous-dependencies": [
 			"error",
-			{ "devDependencies": ["**/*.spec.js"] }
+			{
+				"devDependencies": [
+					"**/*.spec.js"
+				]
+			}
 		]
 	},
 	"settings": {
