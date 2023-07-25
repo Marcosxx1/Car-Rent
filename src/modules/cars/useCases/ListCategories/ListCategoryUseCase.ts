@@ -5,8 +5,8 @@ class ListCategoryUseCase {
   // eslint-disable-next-line prettier/prettier
   constructor(private categoryRepository: ICategoriesRepository) { }
 
-  execute(): Category[] {
-    const categories = this.categoryRepository.list();
+  async execute(): Promise<Category[]> {
+    const categories = await this.categoryRepository.list();
     return categories;
   }
 }
