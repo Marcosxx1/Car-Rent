@@ -5,8 +5,8 @@ import { ListCategoryUseCase } from "./ListCategoryUseCase";
 class ListCategoriesController {
   // eslint-disable-next-line prettier/prettier
   constructor(private listCategoryUseCase: ListCategoryUseCase) { }
-  handle(req: Request, res: Response): Response {
-    const all = this.listCategoryUseCase.execute();
+  async handle(req: Request, res: Response): Promise<Response> {
+    const all = await this.listCategoryUseCase.execute();
     return res.json(all);
   }
 }
