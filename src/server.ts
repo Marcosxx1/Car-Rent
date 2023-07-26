@@ -6,6 +6,8 @@ import { router } from "./routes";
 
 import "./database";
 
+import "./shared/container";
+
 const app = express();
 
 const port = 3000;
