@@ -7,7 +7,7 @@ import { Specification } from "../modules/cars/entities/Specification";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "banco", // Algo está acontecendo aqui? É localhost ou banco?
+  host: "banco" || "localhost", // Algo está acontecendo aqui? É localhost ou banco?
   port: 5432,
   username: "postgres",
   password: "postgres",
