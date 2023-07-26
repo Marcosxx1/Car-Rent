@@ -1,13 +1,16 @@
+import "reflect-metadata";
 import { Request, Response } from "express";
+import { container } from "tsyringe";
 
 import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
 
 class CreateCategoryController {
-  // eslint-disable-next-line prettier/prettier
-  constructor(private createCategoriesUseCase: CreateCategoryUseCase) { }
   async handle(req: Request, res: Response): Promise<Response> {
     const { name, description } = req.body;
-    await this.createCategoriesUseCase.execute({ name, description });
+
+    const createCategoriesUseCase = container.resolve(CreateCategoryUseCase);
+
+    await createCategoriesUseCase.execute({ name, description });
 
     return res.status(201).send();
   }
