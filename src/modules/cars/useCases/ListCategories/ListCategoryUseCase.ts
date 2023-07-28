@@ -8,9 +8,7 @@ class ListCategoryUseCase {
   constructor(
     @inject("CategoriesRepository")
     private categoryRepository: ICategoriesRepository,
-  ) {
-    console.log();
-  }
+  ) { }
 
   async execute(): Promise<Category[]> {
     const categories = await this.categoryRepository.list();
