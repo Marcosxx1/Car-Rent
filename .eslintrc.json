@@ -16,30 +16,26 @@
 		"sourceType": "module"
 	},
 	"plugins": [
+		"security",
 		"@typescript-eslint",
 		"eslint-plugin-import-helpers",
 		"prettier"
 	],
 	"rules": {
-		"object-curly-spacing": [
-			"error",
-			"always"
-		],
+		"object-curly-spacing": ["error", "always"],
 		"prettier/prettier": [
 			"error",
 			{
-				"endOfLine": "off"
+				"endOfLine": "on"
 			}
 		],
-		"camelcase": "off",
+		"camelcase": "error",
 		"import/no-unresolved": "error",
 		"@typescript-eslint/naming-convention": [
 			"error",
 			{
 				"selector": "interface",
-				"format": [
-					"PascalCase"
-				],
+				"format": ["PascalCase"],
 				"custom": {
 					"regex": "^I[A-Z]",
 					"match": true
@@ -48,18 +44,39 @@
 		],
 		"class-methods-use-this": "off",
 		"import/prefer-default-export": "off",
-		"no-shadow": "off",
-		"no-console": "off",
-		"no-useless-constructor": "off",
-		"no-empty-function": "off",
+		"no-shadow": [
+			"error",
+			{
+				"builtinGlobals": false,
+				"hoist": "functions",
+				"allow": []
+			}
+		],
+		"no-console": [
+			"error",
+			{
+				"allow": ["warn", "error"]
+			}
+		],
+		"no-useless-constructor": ["error"],
+		"no-empty-function": [
+			"error",
+			{
+				"allow": ["constructors"]
+			}
+		],
 		"no-use-before-define": [
 			"off",
 			{
 				"variables": false
 			}
 		],
-		"lines-between-class-members": "off",
-		"import/extensions": [
+		"lines-between-class-members": [
+			"error",
+			"always",
+			{ "exceptAfterSingleLine": true }
+		],
+		" import/extensions": [
 			"error",
 			"ignorePackages",
 			{
@@ -70,32 +87,16 @@
 			"warn",
 			{
 				"newlinesBetween": "always",
-				"groups": [
-					"module",
-					"/^@shared/",
-					[
-						"parent",
-						"sibling",
-						"index"
-					]
-				],
+				"groups": ["module", "/^@shared/", ["parent", "sibling", "index"]],
 				"alphabetize": {
 					"order": "asc",
 					"ignoreCase": true
 				}
 			}
-		],
-		"import/no-extraneous-dependencies": [
-			"error",
-			{
-				"devDependencies": [
-					"**/*.spec.js"
-				]
-			}
 		]
 	},
 	"settings": {
-		"import/resolver": {
+		"  import/resolver": {
 			"typescript": {}
 		}
 	}
