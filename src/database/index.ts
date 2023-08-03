@@ -6,9 +6,11 @@ import { User } from "../modules/accounts/entities/User";
 import { Category } from "../modules/cars/entities/Category";
 import { Specification } from "../modules/cars/entities/Specification";
 
+const host = process.env.DB_HOST || "localhost";
+
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "banco" || "localhost", // Algo está acontecendo aqui? É localhost ou banco?
+  host: host,
   port: 5432,
   username: "postgres",
   password: "postgres",
