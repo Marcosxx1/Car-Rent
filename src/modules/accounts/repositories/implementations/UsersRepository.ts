@@ -39,6 +39,10 @@ class UserRepository implements IUserRepository {
 
     await this.repository.save(user);
   }
+
+  async save(user_id: string, user: User): Promise<void> {
+    this.repository.update(user_id, user);
+  }
 }
 
 export { UserRepository };
