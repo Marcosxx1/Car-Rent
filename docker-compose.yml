@@ -20,6 +20,8 @@ services:
     restart: always
     ports:
       - 3000:3000
+    environment:
+      - DB_HOST=banco
     volumes:
       - .:/usr/app
       - /usr/app/node_modules
