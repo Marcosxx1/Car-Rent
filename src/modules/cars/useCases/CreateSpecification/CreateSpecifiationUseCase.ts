@@ -12,8 +12,15 @@ class CreateSpecificationUseCase {
   constructor(
     @inject("SpecificationRepository")
     private specificationRepository: ISpecificationRepository,
-  ) { }
+  ) { console.log("") }
   async execute({ name, description }: IRequest): Promise<void> {
+    name = name.trim();
+    description = description.trim();
+
+    if (!name || !description) {
+      throw new AppError("Category name and description cannot be empty!")
+    }
+
     const specificationAlreadyExists =
       await this.specificationRepository.findByName(name);
 
