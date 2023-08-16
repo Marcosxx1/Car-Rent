@@ -10,7 +10,7 @@ const host = process.env.DB_HOST || "localhost";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
+  host: "banco",
   port: 5432,
   username: "postgres",
   password: "postgres", 

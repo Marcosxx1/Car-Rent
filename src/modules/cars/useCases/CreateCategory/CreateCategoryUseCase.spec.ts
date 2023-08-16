@@ -79,28 +79,29 @@ describe("Create Category", () => {
     expect(category2Created).toHaveProperty("id");
   });
 
-  it("Should be able to create a new category with name equals to 'undefined'", async () => {
+  it("it should not be able to create a category with null description", async () => {
     const category = {
-      name: undefined,
+      name: "Category Test",
+      description: ""
+    };
+
+    await expect(createCategoryUseCase.execute({
+      name: category.name,
+      description: category.description
+    })).rejects.toBeInstanceOf(AppError);
+  })
+
+  it("it should not be able to create a category with null name", async () => {
+    const category = {
+      name: "",
       description: "Category description Test"
     };
 
-    expect(createCategoryUseCase.execute({
+    await expect(createCategoryUseCase.execute({
       name: category.name,
       description: category.description
-    }))
+    })).rejects.toBeInstanceOf(AppError);
   })
 
-  it("Should not be able to create a new category with name equals to 'null'", async () => {
 
-    const category = {
-      name: null,
-      description: "Category description Test"
-    };
-
-    expect(createCategoryUseCase.execute({
-      name: category.name,
-      description: category.description
-    }))
-  })
 });

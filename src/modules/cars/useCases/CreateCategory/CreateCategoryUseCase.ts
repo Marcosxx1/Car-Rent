@@ -16,6 +16,10 @@ class CreateCategoryUseCase {
   ) { }
 
   async execute({ name, description }: IRequest): Promise<void> {
+    if (name === undefined || description === undefined) {
+      throw new AppError("Category name and description cannot be undefined!")
+    }
+
     name = name.trim();
     description = description.trim();
 

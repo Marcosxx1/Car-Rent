@@ -73,5 +73,29 @@ describe("Create Specification", () => {
     expect(firstSpecificationCreated).toHaveProperty("id");
     expect(SecondSpecificationCreated).toHaveProperty("id");
   })
+  it("should not be able to create a new specification with invalid name", async () => {
+    const specification = {
+      name: "",
+      description: "Specification Description Test"
+    }
+
+    await expect(createSpecificationUseCase.execute({
+      name: specification.name,
+      description: specification.description
+    })).rejects.toBeInstanceOf(AppError);
+  })
+
+
+  it("should not be able to create a new specification with invalid description", async () => {
+    const specification = {
+      name: "Specification Test",
+      description: ""
+    }
+
+    await expect(createSpecificationUseCase.execute({
+      name: specification.name,
+      description: specification.description
+    })).rejects.toBeInstanceOf(AppError);
+  })
 
 })
