@@ -18,6 +18,12 @@ class CreateUserUserCase {
     driver_license,
     password,
   }: ICreateUserDTO): Promise<void> {
+    if (name?.trim() === "" ||
+      email?.trim() === "" ||
+      driver_license?.trim() === "" ||
+      password?.trim() === "") {
+      throw new AppError("All fields are required");
+    }
     const hashedPassword = await hash(password, 8);
 
     const emailAlreadyExists = await this.userRepository.findByEmail(email);
