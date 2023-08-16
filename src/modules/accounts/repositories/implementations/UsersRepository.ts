@@ -14,13 +14,11 @@ class UserRepository implements IUserRepository {
 
   async findById(id: string): Promise<User> {
     const user = await this.repository.findOne({ where: { id } });
-
     return user;
   }
 
   async findByEmail(email: string): Promise<User> {
     const emailAlreadyExists = await this.repository.findOneBy({ email });
-
     return emailAlreadyExists;
   }
 
