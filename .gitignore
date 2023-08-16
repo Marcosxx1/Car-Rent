@@ -2,4 +2,6 @@
 /dist
 tmp/
 /coverage
+coverage/
+/coverage
 node_modules
