@@ -10,6 +10,7 @@ class CategoriesRepositoryInMemory implements ICategoriesRepository {
     const category = this.categories.find(category => category.name === name);
     return Promise.resolve(category);
   }
+
   async list(): Promise<Category[]> {
     const all = this.categories;
     return Promise.resolve(all);
