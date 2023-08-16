@@ -98,4 +98,16 @@ describe("Create Specification", () => {
     })).rejects.toBeInstanceOf(AppError);
   })
 
+  it("should not be able to create a new specification with invalid name and description", async () => {
+    const specification = {
+      name: "",
+      description: ""
+    }
+
+    await expect(createSpecificationUseCase.execute({
+      name: specification.name,
+      description: specification.description
+    })).rejects.toBeInstanceOf(AppError);
+  })
+
 })

@@ -103,5 +103,16 @@ describe("Create Category", () => {
     })).rejects.toBeInstanceOf(AppError);
   })
 
+  it("it should not be able to create a category with null name and description", async () => {
+    const category = {
+      name: "",
+      description: ""
+    };
+
+    await expect(createCategoryUseCase.execute({
+      name: category.name,
+      description: category.description
+    })).rejects.toBeInstanceOf(AppError);
+  })
 
 });
