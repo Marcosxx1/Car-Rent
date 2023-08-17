@@ -10,7 +10,7 @@ class CreateUserUserCase {
   constructor(
     @inject("UserRepository")
     private userRepository: IUserRepository,
-  ) { } 
+  ) { }
 
   async execute({
     name,
@@ -24,6 +24,8 @@ class CreateUserUserCase {
       password?.trim() === "") {
       throw new AppError("All fields are required");
     }
+
+
     const hashedPassword = await hash(password, 8);
 
     const emailAlreadyExists = await this.userRepository.findByEmail(email);

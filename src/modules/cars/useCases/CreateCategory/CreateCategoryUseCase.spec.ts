@@ -114,5 +114,23 @@ describe("Create Category", () => {
       description: category.description
     })).rejects.toBeInstanceOf(AppError);
   })
+  /*     if (name === undefined || description === undefined) {
+*/
+  it("should not create with null name or null desription", async () => {
+    const category = {
+      name: null,
+      description: null
+    }
 
+    await expect(createCategoryUseCase.execute(category)).rejects.toBeInstanceOf(TypeError);
+  })
+
+  it("should throw an error if name and description are undefined", async () => {
+    const category = {
+      name: undefined,
+      description: undefined,
+    };
+
+    await expect(createCategoryUseCase.execute(category)).rejects.toBeInstanceOf(AppError);
+  });
 });
