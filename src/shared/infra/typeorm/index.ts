@@ -4,6 +4,7 @@ import { DataSource } from "typeorm";
 import { Category } from "../../../modules/cars/infra/typeorm/entities/Category";
 import { Specification } from "../../../modules/cars/infra/typeorm/entities/Specification";
 import { User } from "../../../modules/accounts/infra/typeorm/entities/User";
+import { Car } from "../../../modules/cars/infra/typeorm/entities/Car";
 
 
 const host = process.env.DB_HOST || "localhost";
@@ -17,7 +18,7 @@ export const AppDataSource = new DataSource({
   database: "rentx",
   synchronize: true,
   logging: false,
-  entities: [Category, Specification, User],
+  entities: [Category, Specification, User, Car],
   migrations: ["src/database/migrations/*.ts"],
   subscribers: [],
 });
