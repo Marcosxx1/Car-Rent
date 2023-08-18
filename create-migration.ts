@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
 
-const migrationDirectory = "./src/database/migrations";
+const migrationDirectory = "./src/shared/infra/typeorm/migrations";
 
 const [, , migrationName] = process.argv;
 
