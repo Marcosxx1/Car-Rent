@@ -4,7 +4,7 @@
   "description": "Car rent using Node.js and typescript",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --inspect --poll --exit-child --watch src src/server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only --inspect --poll --exit-child --watch src src/shared/infra/http/server.ts",
     "test": "jest",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "createMig": "ts-node create-migration.ts"

@@ -1,7 +1,7 @@
-import { AppError } from "../../../../errors/AppError";
-import { CategoriesRepositoryInMemory } from "../../repository/in-memory/CategoriesRepositoryInMemory";
+import { AppError } from "../../../../shared/errors/AppError";
 import { SpecificationRepositoryInMemory } from "../../repository/in-memory/SpecificationRepositoryInMemory";
 import { CreateSpecificationUseCase } from "./CreateSpecifiationUseCase";
+
 
 
 let createSpecificationUseCase: CreateSpecificationUseCase;
