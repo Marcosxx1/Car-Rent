@@ -4,7 +4,7 @@
   "description": "Car rent using Node.js and typescript",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --inspect --poll --exit-child --watch src src/shared/infra/http/server.ts",
+    "dev": "ts-node-dev --respawn --transpile-only --inspect --poll --exit-child --watch src api/adapters/in/http/server.ts",
     "test": "jest",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "createMig": "ts-node create-migration.ts"
@@ -24,6 +24,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "bash": "^0.0.1",
     "bcrypt": "^5.1.0",
+    "class-transformer": "^0.5.1",
     "csv-parse": "^5.4.0",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
