@@ -11,14 +11,25 @@ import { SpecificationRepositoryAdapter } from "../../../out/type-orm/postgres-a
 import { CategoryRepositoryAdapter } from "../../../out/type-orm/postgres-adapter/category-repository-adapter";
 import { CategoryCreate } from "../../../../business/core/category-create";
 import { ICarDTO } from "../../../out/type-orm/postgres-adapter/models/data-validation/car-dto-validation";
+import { CarModel } from "../../../out/type-orm/postgres-adapter/models/car-model";
 
 export default class CreateCarController {
   static async createCar(req: Request, res: Response): Promise<Response> {
     const carRepositoryAdapter = new CarRepositoryAdapter();
+    const carDTO = new ICarDTO();
+
     try {
-      const carData: ICarDTO = req.body;
+      carDTO.name = req.body.name;
+      carDTO.description = req.body.description;
+      carDTO.daily_rate = req.body.daily_rate;
+      carDTO.license_plate = req.body.license_plate;
+      carDTO.fine_amount = req.body.fine_amount;
+      carDTO.brand = req.body.brand;
+      carDTO.category_id = req.body.category_id;
+
       const createCar = new CarCreate(carRepositoryAdapter);
-      const createdCar = await createCar.execute(carData);
+
+      const createdCar = await createCar.execute(carDTO);
       return res.status(201).json(createdCar);
 
     } catch (error) {
@@ -70,12 +81,20 @@ export default class CreateCarController {
 
   static async carUpdate(req: Request, res: Response): Promise<Response> {
     const carRepositoryAdapter = new CarRepositoryAdapter();
+    const carDTO = new ICarDTO();
+
     try {
-      const id: ICar["id"] = req.params.id;
-      const carData: ICar = req.body;
+      carDTO.name = req.body.name;
+      carDTO.description = req.body.description;
+      carDTO.daily_rate = req.body.daily_rate;
+      carDTO.license_plate = req.body.license_plate;
+      carDTO.fine_amount = req.body.fine_amount;
+      carDTO.brand = req.body.brand;
+      carDTO.category_id = req.body.category_id;
+
       const updateCar = new carUpdate(carRepositoryAdapter);
 
-      const updatedCar = await updateCar.execute(carData, id);
+      const updatedCar = await updateCar.execute(carDTO, carDTO.id);
       return res.status(200).json(updatedCar);
 
     } catch (error) {

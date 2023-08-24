@@ -1,23 +1,20 @@
 import { DataValidator } from "../../adapters/in/http/utils/validate-data";
+import { ICarDTO } from "../../adapters/out/type-orm/postgres-adapter/models/data-validation/car-dto-validation";
 import { ICar } from "../entities/Car";
 import { CarPort } from "../ports/car-ports";
 
 export class carUpdate {
-  private validateData: DataValidator;
+  private dataValidator: DataValidator;
   private carAdapter: CarPort;
 
   constructor(carAdapter: CarPort) {
     this.carAdapter = carAdapter;
-    this.validateData = new DataValidator();
   }
 
-  async execute(car: ICar, id: string): Promise<ICar> {
+  async execute(car: ICarDTO, id: string): Promise<ICar> {
+    this.dataValidator = new DataValidator();
 
-    const carFound = await this.carAdapter.findByLicensePlate(car.license_plate)
-
-    if (carFound) {
-      throw ("Car already exists!");
-    }
+    await this.dataValidator.validateData(car);
 
     return this.carAdapter.update(car.id, car);
   }

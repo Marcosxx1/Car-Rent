@@ -20,6 +20,7 @@ app.post('/specifications', CreateCarController.SpecificationCreate);
 app.get('/specifications', CreateCarController.SpecificationList);
 app.post('/categories', CreateCarController.CategoryCreate)
 app.delete('/cars/:id', CreateCarController.carDelete);
+app.put('/cars/:id', CreateCarController.carUpdate);
 
 app.listen(port, async () => {
   console.log(`Listening on Port ${port}`);

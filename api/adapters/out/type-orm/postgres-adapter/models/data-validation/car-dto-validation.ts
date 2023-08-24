@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsNumber, IsString, IsOptional, IsBoolean, IsDate } from 'class-validator';
 
 class ICarDTO {
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   id?: string;
 
@@ -17,8 +17,6 @@ class ICarDTO {
   @IsNumber()
   daily_rate: number;
 
-  @IsNotEmpty()
-  @IsBoolean()
   available: boolean;
 
   @IsNotEmpty()
@@ -37,7 +35,7 @@ class ICarDTO {
   @IsString()
   category_id: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDate()
   created_at?: Date;
 }
