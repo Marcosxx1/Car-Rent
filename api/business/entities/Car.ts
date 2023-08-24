@@ -1,5 +1,3 @@
-import { v4 as uuidV4 } from "uuid";
-
 
 export interface ICar {
   id?: string;
@@ -17,15 +15,7 @@ export interface ICar {
 export class Car {
   private props: ICar;
 
-
   get data() {
     return this.props;
-  }
-
-  constructor(props: ICar) {
-    this.props = props;
-    if (!this.props.id) {
-      this.props.id = uuidV4();
-    }
   }
 }
