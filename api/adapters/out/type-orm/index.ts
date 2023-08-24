@@ -2,8 +2,9 @@ import "reflect-metadata";
 
 import { DataSource } from "typeorm";
 import { UserModel } from "./postgres-adapter/models/user-model";
-import { User } from "../../../business/entities/User";
 import { CarModel } from "./postgres-adapter/models/car-model";
+import { SpecificationModel } from "./postgres-adapter/models/specification-model";
+import { CategoryModel } from "./postgres-adapter/models/category-model";
 
 
 const host = process.env.DB_HOST || "localhost";
@@ -17,7 +18,7 @@ export const AppDataSource = new DataSource({
   database: "rentx",
   synchronize: true,
   logging: false,
-  entities: [UserModel, User, CarModel],
+  entities: [UserModel, CarModel, SpecificationModel, CategoryModel],
   migrations: ["./migrations/*.ts"],
   subscribers: [],
 });

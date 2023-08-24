@@ -8,8 +8,8 @@ import CarDelete from "../../../../business/core/car-delete";
 import { carUpdate } from "../../../../business/core/car-update";
 import { SpecificationCreate } from "../../../../business/core/specification-create";
 import { SpecificationRepositoryAdapter } from "../../../out/type-orm/postgres-adapter/specification-repository-adapter";
-import { Specification } from "../../../../business/entities/Specification";
-
+import { CategoryRepositoryAdapter } from "../../../out/type-orm/postgres-adapter/category-repository-adapter";
+import { CategoryCreate } from "../../../../business/core/category-create";
 
 export default class CreateCarController {
   static async createCar(req: Request, res: Response): Promise<Response> {
@@ -123,6 +123,26 @@ export default class CreateCarController {
       console.error("An unexpected error occurred:", error);
       return res.status(400).json({ error: `${error}` });
     }
+  }
+
+  static async CategoryCreate(req: Request, res: Response): Promise<Response> {
+    const categoryRepositoryAdapter = new CategoryRepositoryAdapter();
+    try {
+      const { name, description } = req.body;
+      const createCategory = new CategoryCreate(categoryRepositoryAdapter);
+
+      const createdCategory = await createCategory.execute({ name, description });
+      return res.status(201).json(createdCategory);
+
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AppError) {
+        return res.status(error.statusCode).json({ error: error.message });
+      }
+
+      console.error("An unexpected error occurred:", error);
+      return res.status(400).json({ error: `${error}` });
+    } 
   }
 }
 

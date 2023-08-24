@@ -1,6 +1,4 @@
 import { IUser } from "../entities/User";
-
-
 export interface UserPort {
   create(data: IUser): Promise<void>;
   findById(id: string): Promise<IUser>;

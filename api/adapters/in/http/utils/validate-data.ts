@@ -1,6 +1,6 @@
 import { validate, ValidationError } from "class-validator";
 import { AppError } from "./get-error";
-import { ICarDTO } from "../../../out/type-orm/postgres-adapter/models/car-dto";
+import { ICar } from "../../../../business/entities/Car";
 
 class DataValidator {
   async validateData(data: any): Promise<void> {
@@ -16,7 +16,7 @@ class DataValidator {
   }
 
 
-  async validateCar(data: ICarDTO): Promise<void> {
+  async validateCar(data: ICar): Promise<void> {
     console.log("Validating data:", data);
 
     const errors = await validate(data);

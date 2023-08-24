@@ -3,8 +3,6 @@ import { UserRepositoryAdapter } from "../../../out/type-orm/postgres-adapter/us
 import { AuthenticateUser } from "../../../../business/core/authenticate-user";
 import { AppError } from "../utils/get-error";
 
-
-
 export class LoginController {
 
   static async login(req: Request, res: Response): Promise<Response> {

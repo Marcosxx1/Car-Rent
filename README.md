@@ -1,5 +1,5 @@
 # Car Rental App(WORK IN PROGRESS)
-
+I'm using this repository to study and practice commit pattern
 The Car Rental App is a Node.js-based application using typescript designed to provide users with a seamless car rental experience, allowing them to rent cars and efficiently manage car-related operations.
 
 ## Car Rental App Architecture Explanation
@@ -71,7 +71,7 @@ The application offers various API endpoints catering to different functionaliti
 
 ### Specifications
 
-- `POST /specifications`: Creates a new car specification (requires authentication).
+- `POST /specifications`: Creates a new car specification (requires authentication WIP).
 
 ### Users
 
@@ -112,9 +112,11 @@ The application offers various API endpoints catering to different functionaliti
  ┃    ┣ postgres-adapter/
  ┃    ┃ ┣ models/
  ┃    ┃ ┃ ┣ car-model.ts
+ ┃    ┃ ┃ ┣ category-model.ts 
  ┃    ┃ ┃ ┣ specification-model.ts
  ┃    ┃ ┃ ┗ user-model.ts
  ┃    ┃ ┣ car-repository-adapter.ts
+ ┃    ┃ ┣ category-repository-adapter.ts 
  ┃    ┃ ┣ specification-repository-adapter.ts
  ┃    ┃ ┗ user-repository-adapter.ts
  ┃    ┗ index.ts
@@ -129,11 +131,13 @@ The application offers various API endpoints catering to different functionaliti
    ┃ ┣ specification-list.ts
    ┃ ┗ user-create.ts
    ┣ entities/
-   ┃ ┣ Car.ts
-   ┃ ┣ User.ts
-   ┃ ┗ Specification.ts
+   ┃ ┣ car.ts
+   ┃ ┣ category.ts  
+   ┃ ┣ user.ts
+   ┃ ┗ specification.ts
    ┗ ports/
      ┣ car-ports.ts
+     ┣ category-ports.ts
      ┣ specification-ports.ts
      ┗ user-port.ts
 </details>

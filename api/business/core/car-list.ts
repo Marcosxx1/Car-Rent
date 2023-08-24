@@ -1,7 +1,6 @@
 import { ICar } from "../entities/Car";
 import { CarPort } from "../ports/car-ports";
 
-
 export class ListCar {
   private carAdapter: CarPort;
 

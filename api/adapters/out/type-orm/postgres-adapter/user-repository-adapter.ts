@@ -1,9 +1,9 @@
 import { Repository } from "typeorm";
 
-import { IUser } from "../../../../business/entities/User";
 import { UserPort } from "../../../../business/ports/user-port";
 import { AppDataSource } from "..";
 import { UserModel } from "./models/user-model";
+import { IUser } from "../../../../business/entities/User";
 
 
 export class UserRepositoryAdapter implements UserPort {
