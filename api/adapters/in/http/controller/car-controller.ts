@@ -10,12 +10,13 @@ import { SpecificationCreate } from "../../../../business/core/specification-cre
 import { SpecificationRepositoryAdapter } from "../../../out/type-orm/postgres-adapter/specification-repository-adapter";
 import { CategoryRepositoryAdapter } from "../../../out/type-orm/postgres-adapter/category-repository-adapter";
 import { CategoryCreate } from "../../../../business/core/category-create";
+import { ICarDTO } from "../../../out/type-orm/postgres-adapter/models/data-validation/car-dto-validation";
 
 export default class CreateCarController {
   static async createCar(req: Request, res: Response): Promise<Response> {
     const carRepositoryAdapter = new CarRepositoryAdapter();
     try {
-      const carData: ICar = req.body;
+      const carData: ICarDTO = req.body;
       const createCar = new CarCreate(carRepositoryAdapter);
       const createdCar = await createCar.execute(carData);
       return res.status(201).json(createdCar);
