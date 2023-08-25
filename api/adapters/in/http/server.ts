@@ -1,13 +1,19 @@
-import Express from 'express';
+import Express, { NextFunction, Request, Response } from "express";
 import CreateUserController from './controller/user-controller';
 import CreateCarController
   from './controller/car-controller';
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from "../../../../swagger.json";
+
 const app = Express();
 app.use(Express.json());
 
 import "../../out/type-orm"
 
 import { LoginController } from './controller/login-controller';
+import { AppError } from "./utils/get-error";
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
 const port = process.env.PORT || 3000;
@@ -22,6 +28,20 @@ app.post('/categories', CreateCarController.CategoryCreate)
 app.delete('/cars/:id', CreateCarController.carDelete);
 app.put('/cars/:id', CreateCarController.carUpdate);
 
-app.listen(port, async () => {
-  console.log(`Listening on Port ${port}`);
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      message: err.message
+    })
+  }
+
+  return res.status(500).json({
+    status: "error",
+    message: `Internal server error - ${err.message}`
+  })
+})
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+  console.log(`http://localhost:${port}/api-docs`);
 });

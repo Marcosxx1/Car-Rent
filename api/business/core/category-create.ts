@@ -1,27 +1,26 @@
+import { DataValidator } from "../../adapters/in/http/utils/validate-data";
+import { ValidateCategory } from "../../adapters/out/type-orm/postgres-adapter/models/data-validation/category-dto-validation";
 import { ICategory } from "../entities/Category";
 import CategoryPort from "../ports/categories-ports";
 
 
-interface IRequest {
-  name: string;
-  description: string;
-}
-
 export class CategoryCreate {
   private categoryAdapter: CategoryPort;
+  private dataValidator: DataValidator;
 
   constructor(categoryAdapter: CategoryPort) {
     this.categoryAdapter = categoryAdapter;
   }
 
-  async execute({ name, description }: IRequest): Promise<ICategory> {
-    if (!name || !description) {
-      throw ("Invalid name or description");
-    }
-    if (await this.categoryAdapter.findByName(name)) {
+  async execute(category: ValidateCategory): Promise<ICategory> {
+
+    this.dataValidator = new DataValidator();
+    await this.dataValidator.validateData(category)
+
+    if (await this.categoryAdapter.findByName(category.name)) {
       throw ("Category already exists");
     }
-    const categoryCreated = await this.categoryAdapter.create({ name, description });
+    const categoryCreated = await this.categoryAdapter.create(category);
     return categoryCreated;
   }
 }

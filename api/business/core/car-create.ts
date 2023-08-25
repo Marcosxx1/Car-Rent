@@ -1,5 +1,5 @@
 import { DataValidator } from "../../adapters/in/http/utils/validate-data";
-import { ICarDTO } from "../../adapters/out/type-orm/postgres-adapter/models/data-validation/car-dto-validation";
+import { CarValidation } from "../../adapters/out/type-orm/postgres-adapter/models/data-validation/car-dto-validation";
 import { CarPort } from "../ports/car-ports";
 
 export class CarCreate {
@@ -10,7 +10,7 @@ export class CarCreate {
     this.carAdapter = carAdapter;
   }
 
-  async execute(car: ICarDTO): Promise<ICarDTO> {
+  async execute(car: CarValidation): Promise<CarValidation> {
     this.dataValidator = new DataValidator();
 
     await this.dataValidator.validateData(car);

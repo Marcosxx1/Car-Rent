@@ -10,13 +10,13 @@ import { SpecificationCreate } from "../../../../business/core/specification-cre
 import { SpecificationRepositoryAdapter } from "../../../out/type-orm/postgres-adapter/specification-repository-adapter";
 import { CategoryRepositoryAdapter } from "../../../out/type-orm/postgres-adapter/category-repository-adapter";
 import { CategoryCreate } from "../../../../business/core/category-create";
-import { ICarDTO } from "../../../out/type-orm/postgres-adapter/models/data-validation/car-dto-validation";
-import { CarModel } from "../../../out/type-orm/postgres-adapter/models/car-model";
+import { CarValidation } from "../../../out/type-orm/postgres-adapter/models/data-validation/car-dto-validation";
+import { ValidateCategory } from "../../../out/type-orm/postgres-adapter/models/data-validation/category-dto-validation";
 
 export default class CreateCarController {
   static async createCar(req: Request, res: Response): Promise<Response> {
     const carRepositoryAdapter = new CarRepositoryAdapter();
-    const carDTO = new ICarDTO();
+    const carDTO = new CarValidation();
 
     try {
       carDTO.name = req.body.name;
@@ -35,7 +35,7 @@ export default class CreateCarController {
     } catch (error) {
       console.log(error);
       if (error instanceof AppError) {
-        return res.status(error.statusCode).json({ error: error.message });
+        return res.status(error.statusCode).json({ error: error.errors });
       }
 
       console.error("An unexpected error occurred:", error);
@@ -81,7 +81,7 @@ export default class CreateCarController {
 
   static async carUpdate(req: Request, res: Response): Promise<Response> {
     const carRepositoryAdapter = new CarRepositoryAdapter();
-    const carDTO = new ICarDTO();
+    const carDTO = new CarValidation();
 
     try {
       carDTO.name = req.body.name;
@@ -147,17 +147,21 @@ export default class CreateCarController {
 
   static async CategoryCreate(req: Request, res: Response): Promise<Response> {
     const categoryRepositoryAdapter = new CategoryRepositoryAdapter();
+    const categoryDTO = new ValidateCategory();
+
     try {
-      const { name, description } = req.body;
+      categoryDTO.name = req.body.name;
+      categoryDTO.description = req.body.description;
+
       const createCategory = new CategoryCreate(categoryRepositoryAdapter);
 
-      const createdCategory = await createCategory.execute({ name, description });
+      const createdCategory = await createCategory.execute(categoryDTO);
       return res.status(201).json(createdCategory);
 
     } catch (error) {
       console.log(error);
       if (error instanceof AppError) {
-        return res.status(error.statusCode).json({ error: error.message });
+        return res.status(error.statusCode).json({ error: error.errors });
       }
 
       console.error("An unexpected error occurred:", error);

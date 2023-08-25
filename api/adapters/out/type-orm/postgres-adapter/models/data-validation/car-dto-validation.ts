@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString, IsOptional, IsBoolean, IsDate } from 'class-validator';
 
-class ICarDTO {
+export class CarValidation {
   @IsOptional()
   @IsString()
   id?: string;
@@ -39,5 +39,3 @@ class ICarDTO {
   @IsDate()
   created_at?: Date;
 }
-
-export { ICarDTO }

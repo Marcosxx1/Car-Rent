@@ -8,13 +8,24 @@
       "email": "marcosxx1.ma@gmail.com"
     }
   },
+  "tags": [
+    {
+      "name": "Category"
+    },
+    {
+      "name": "Specifications"
+    },
+    {
+      "name": "Cars"
+    }
+  ],
   "paths": {
     "/categories": {
       "post": {
         "tags": [
           "Category"
         ],
-        "sumary": "Create a categorys",
+        "summary": "Create a category",
         "description": "Create a new category",
         "requestBody": {
           "content": {
@@ -41,8 +52,28 @@
           "201": {
             "description": "Created"
           },
-          "500": {
-            "description": "Category already exists"
+          "400": {
+            "description": "Errors during data filling",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -50,7 +81,7 @@
         "tags": [
           "Category"
         ],
-        "sumary": "List all categories",
+        "summary": "List all categories",
         "description": "List all categories",
         "responses": {
           "200": {
@@ -82,7 +113,7 @@
         "tags": [
           "Category"
         ],
-        "sumary": "Upload a new category",
+        "summary": "Upload a new category",
         "description": "Upload a new Category",
         "requestBody": {
           "content": {
@@ -106,13 +137,13 @@
         "tags": [
           "Specifications"
         ],
-        "sumary": "Create a specification",
+        "summary": "Create a specification",
         "description": "Create a new specification",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/definitions/Specification"
+                "$ref": "#/components/schemas/Specification"
               }
             }
           }
@@ -125,19 +156,239 @@
             "description": "Specification already exists"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Specifications"
+        ],
+        "summary": "List all specifications",
+        "description": "List all specifications",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars": {
+      "post": {
+        "summary": "Create a new car",
+        "tags": [
+          "Cars"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CarValidationRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List all cars",
+        "tags": [
+          "Cars"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarValidationRequestBody"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "delete": {
+        "summary": "Delete a car by ID",
+        "tags": [
+          "Cars"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "200": {
+            "description": "cuccess",
+            "message": "Deleted successfully"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a car by ID",
+        "tags": [
+          "Cars"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CarValidationRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarValidationRequestBody"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
-  "definitions": {
-    "Specification": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
+  "components": {
+    "schemas": {
+      "Specification": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
         }
+      },
+      "CarValidationRequestBody": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "daily_rate": {
+            "type": "number"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "license_plate": {
+            "type": "string"
+          },
+          "fine_amount": {
+            "type": "number"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "daily_rate",
+          "license_plate",
+          "fine_amount",
+          "brand"
+        ]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "error",
+          "errors"
+        ]
       }
     }
   }
