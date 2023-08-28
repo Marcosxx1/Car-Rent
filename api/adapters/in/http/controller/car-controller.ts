@@ -66,6 +66,7 @@ export default class CreateCarController {
     const carRepositoryAdapter = new CarRepositoryAdapter();
     try {
       const cars = await carRepositoryAdapter.list();
+      console.log(cars);
       return res.status(200).json(cars);
 
     } catch (error) {

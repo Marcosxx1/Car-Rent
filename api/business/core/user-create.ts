@@ -17,7 +17,7 @@ class UserCreate {
     const userAlreadyExists = await this.userAdapter.findByEmail(user.email);
 
     if (userAlreadyExists) {
-      throw new AppError("User already exists");
+      throw new AppError("User already exists", ["Email address is already in use"], 400);
     }
 
     this.validateData = new DataValidator();
@@ -28,7 +28,7 @@ class UserCreate {
       email: user.email,
       driver_license: user.driver_license,
       password: hashedPassword,
-      isAdmin: false
+      is_admin: false
     });
   }
 

@@ -7,7 +7,8 @@
     "dev": "ts-node-dev --respawn --transpile-only --inspect --poll --exit-child --watch src api/adapters/in/http/server.ts",
     "test": "jest",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
-    "createMig": "ts-node create-migration.ts"
+    "createMig": "ts-node create-migration.ts",
+    "seed:admin": "ts-node-dev api/adapters/out/type-orm/seed/admin.ts"
   },
   "repository": {
     "type": "git",

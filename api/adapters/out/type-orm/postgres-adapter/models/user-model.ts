@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 @Entity()
 class UserModel {
   @PrimaryColumn()
-  id: string;
+  id?: string;
 
   @Column({ nullable: false })
   name: string;
@@ -21,14 +21,14 @@ class UserModel {
   password: string;
 
   @Column({ default: false })
-  isAdmin: boolean;
+  is_admin: boolean;
 
   @Column({ default: 'default_avatar.png' })
-  avatar: string;
+  avatar?: string;
 
 
   @CreateDateColumn()
-  created_at: Date;
+  created_at?: Date;
 
   constructor() {
     if (!this.id) {

@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 
 import { v4 as uuidV4 } from "uuid";
+import { CategoryModel } from "./category-model";
 
 @Entity("cars")
 export class CarModel {
@@ -31,7 +32,8 @@ export class CarModel {
   @Column()
   brand: string;
 
-  @Column({ nullable: true, default: null })
+  @ManyToOne(() => CategoryModel)
+  @JoinColumn({ name: "category_id" })
   category_id: string;
 
   @Column({ default: "now()" })

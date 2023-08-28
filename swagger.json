@@ -190,7 +190,7 @@
     },
     "/cars": {
       "post": {
-        "summary": "Create a new car",
+        "summary": "Create a new car. Needs Category{id}",
         "tags": [
           "Cars"
         ],

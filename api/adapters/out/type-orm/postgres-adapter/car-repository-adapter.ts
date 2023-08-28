@@ -26,9 +26,11 @@ export class CarRepositoryAdapter implements CarPort {
   async delete(id: string): Promise<void> {
     await this.repository.delete(id)
   }
+
   async list(page: number = 1, limit: number = 10): Promise<ICar[]> {
     const cars = await this.repository
-      .createQueryBuilder()
+      .createQueryBuilder("car")
+      .leftJoinAndSelect("car.category_id", "category")
       .skip((page - 1) * limit)
       .take(limit)
       .getMany();
@@ -53,10 +55,12 @@ export class CarRepositoryAdapter implements CarPort {
     const cars = await query.getMany();
     return cars;
   }
+
   async findById(id: string): Promise<ICar> {
     const car = await this.repository.findOneOrFail({ where: { id } });
     return car;
   }
+
   async updateAvailable(id: string, available: boolean): Promise<void> {
     await this.repository.update({ id }, { available: !available });
   }

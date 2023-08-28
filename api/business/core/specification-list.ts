@@ -14,7 +14,7 @@ export class ListSpecification {
     const specification_found = await this.specificationAdapter.list();
 
     if (!specification_found) {
-      throw new Error("Specification not found")
+      throw ("Specification not found")
     }
 
     return specification_found;

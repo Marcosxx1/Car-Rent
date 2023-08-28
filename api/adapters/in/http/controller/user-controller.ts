@@ -20,13 +20,12 @@ export default class CreateUserController {
       return res.status(201).send();
     } catch (error) {
       console.log(error);
-
       if (error instanceof AppError) {
         return res.status(error.statusCode).json({ error: error.message });
       }
 
       console.error("An unexpected error occurred:", error);
-      return res.status(400).json({ error: error });
+      return res.status(400).json({ error: `${error.detail}` });
     }
   }
 }

@@ -5,7 +5,7 @@ export interface IUser {
   email: string;
   driver_license: string;
   password: string;
-  isAdmin: boolean;
+  is_admin: boolean;
   avatar?: string;
   created_at?: Date;
 }

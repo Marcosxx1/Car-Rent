@@ -7,7 +7,7 @@ import { IUser } from "../../../../business/entities/User";
 
 
 export class UserRepositoryAdapter implements UserPort {
-  private repository: Repository<IUser>;
+  private repository: Repository<UserModel>;
 
   constructor() {
     this.repository = AppDataSource.getRepository(UserModel);

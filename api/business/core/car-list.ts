@@ -10,7 +10,6 @@ export class ListCar {
 
   async execute(): Promise<ICar[]> {
     const cars_found = await this.carAdapter.list();
-
     if (!cars_found) {
       throw ("Car list is empty!");
     }
