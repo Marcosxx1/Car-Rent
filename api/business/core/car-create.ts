@@ -1,3 +1,4 @@
+import { AppError } from "../../adapters/in/http/utils/get-error";
 import { DataValidator } from "../../adapters/in/http/utils/validate-data";
 import { CarValidation } from "../../adapters/out/type-orm/postgres-adapter/models/data-validation/car-dto-validation";
 import { CarPort } from "../ports/car-ports";
@@ -18,7 +19,7 @@ export class CarCreate {
     const carFound = await this.carAdapter.findByLicensePlate(car.license_plate)
 
     if (carFound) {
-      throw ("Car already exists");
+      throw new AppError("Error: ", ["Car already exists"], 400);
     }
 
     const createdCar = await this.carAdapter.create(car);

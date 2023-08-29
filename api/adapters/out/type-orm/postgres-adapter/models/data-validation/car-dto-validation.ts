@@ -17,7 +17,7 @@ export class CarValidation {
   @IsNumber()
   daily_rate: number;
 
-  available: boolean;
+  available?: boolean;
 
   @IsNotEmpty()
   @IsString()

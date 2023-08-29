@@ -2,6 +2,8 @@ import Express, { NextFunction, Request, Response } from "express";
 import CreateUserController from './controller/user-controller';
 import CreateCarController
   from './controller/car-controller';
+import { EnsureAdmin } from "./middlewares/ensure-admin";
+import { ensureAuthenticated } from "./middlewares/ensure-authenticated";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "../../../../swagger.json";
 
@@ -22,9 +24,12 @@ app.post('/users', CreateUserController.createUser);
 app.post('/sessions', LoginController.login)
 app.post('/cars', CreateCarController.createCar);
 app.get('/cars', CreateCarController.carList);
+
 app.post('/specifications', CreateCarController.SpecificationCreate);
-app.get('/specifications', CreateCarController.SpecificationList);
+app.get('/specifications', ensureAuthenticated, EnsureAdmin, CreateCarController.SpecificationList);
 app.post('/categories', CreateCarController.CategoryCreate)
+app.get('/categories', CreateCarController.CategoryList)
+
 app.delete('/cars/:id', CreateCarController.carDelete);
 app.put('/cars/:id', CreateCarController.carUpdate);
 

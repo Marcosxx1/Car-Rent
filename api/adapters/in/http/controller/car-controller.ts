@@ -167,7 +167,24 @@ export default class CreateCarController {
 
       console.error("An unexpected error occurred:", error);
       return res.status(400).json({ error: `${error}` });
-    } 
+    }
+  }
+
+  static async CategoryList(req: Request, res: Response): Promise<Response> {
+    const categoryRepositoryAdapter = new CategoryRepositoryAdapter();
+    try {
+      const categories = await categoryRepositoryAdapter.list(1, 5);
+      return res.status(200).json(categories);
+
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AppError) {
+        return res.status(error.statusCode).json({ error: error.message });
+      }
+
+      console.error("An unexpected error occurred:", error);
+      return res.status(400).json({ error: `${error}` });
+    }
   }
 }
 

@@ -4,7 +4,7 @@ export interface ICar {
   name: string;
   description: string;
   daily_rate: number;
-  available: boolean;
+  available?: boolean;
   license_plate: string;
   fine_amount: number;
   brand: string;
