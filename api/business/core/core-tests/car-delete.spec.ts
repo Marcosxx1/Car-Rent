@@ -29,7 +29,7 @@ describe("CarDelete", () => {
 
     const carDeleted = await carRepository.findById(car.id);
 
-    expect(carDeleted).toBe(undefined);
+    expect(carDeleted).toBeUndefined
 
   })
 

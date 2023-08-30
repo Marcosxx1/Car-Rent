@@ -36,10 +36,11 @@ export class CarRepositoryInMemoryAdapter implements CarPort {
     const cars = this.cars.filter(car => car.available === true);
     return cars;
   }
-  async findById(id: string): Promise<ICar> {
+  async findById(id: string): Promise<ICar | null> {
     const car = this.cars.find(car => car.id === id);
-    return car;
+    return car || null;
   }
+
   async updateAvailable(id: string, available: boolean): Promise<void> {
     const car = this.cars.find(car => car.id === id);
     car.available = available;

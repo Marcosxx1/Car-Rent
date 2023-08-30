@@ -1,4 +1,4 @@
-
+/* 
 import { AppError } from "../../../adapters/in/http/utils/get-error";
 import { CarRepositoryInMemoryAdapter } from "../../../adapters/out/type-orm/postgres-adapter/in-memory/car-repository-adapter-in-memory";
 import { DataValidator } from "../../../adapters/in/http/utils/validate-data";
@@ -104,4 +104,96 @@ describe("Car Create", () => {
   })
 
 })
+ */
 
+import { AppError } from "../../../adapters/in/http/utils/get-error";
+import { DataValidator } from "../../../adapters/in/http/utils/validate-data";
+import { CarRepositoryInMemoryAdapter } from "../../../adapters/out/type-orm/postgres-adapter/in-memory/car-repository-adapter-in-memory";
+import { CarCreate } from "../car-create";
+
+
+describe('CarCreate', () => {
+  let carCreate: CarCreate;
+  let carRepository: CarRepositoryInMemoryAdapter;
+
+  beforeEach(() => {
+    carRepository = new CarRepositoryInMemoryAdapter();
+    carCreate = new CarCreate(carRepository);
+  });
+
+  it('should create a car successfully', async () => {
+    const carData = {
+      name: "Car Available",
+      description: "Car description",
+      daily_rate: 100,
+      license_plate: "ABC-1234",
+      fine_amount: 60,
+      brand: "Car brand",
+      category_id: "category_id",
+      available: false
+    };
+
+    const createdCar = await carCreate.execute(carData);
+
+    expect(createdCar).toBeDefined();
+    // Add more assertions if needed
+  });
+
+  it('should throw AppError if car already exists', async () => {
+    const existingCarData = {
+      name: "Car Available",
+      description: "Car description",
+      daily_rate: 100,
+      license_plate: "ABC-1234",
+      fine_amount: 60,
+      brand: "Car brand",
+      category_id: "category_id",
+      available: false
+    };
+    await carRepository.create(existingCarData);
+
+    const createExistingCar = async () => await carCreate.execute(existingCarData);
+
+    await expect(createExistingCar).rejects.toThrowError(AppError);
+  });
+
+  it('should call DataValidator.validateData', async () => {
+    const carData = {
+      name: "Car Available",
+      description: "Car description",
+      daily_rate: 100,
+      license_plate: "ABC-1234",
+      fine_amount: 60,
+      brand: "Car brand",
+      category_id: "category_id",
+      available: false
+    };
+
+    const validateDataSpy = jest.spyOn(DataValidator.prototype, 'validateData');
+
+    await carCreate.execute(carData);
+
+    expect(validateDataSpy).toHaveBeenCalledWith(carData);
+    validateDataSpy.mockRestore();
+  });
+
+  it('should call carAdapter.findByLicensePlate', async () => {
+    const carData = {
+      name: "Car Available",
+      description: "Car description",
+      daily_rate: 100,
+      license_plate: "ABC-1234",
+      fine_amount: 60,
+      brand: "Car brand",
+      category_id: "category_id",
+      available: false
+    };
+    const findByLicensePlateSpy = jest.spyOn(carRepository, 'findByLicensePlate');
+
+    await carCreate.execute(carData);
+
+    expect(findByLicensePlateSpy).toHaveBeenCalledWith(carData.license_plate);
+    findByLicensePlateSpy.mockRestore();
+  });
+
+});

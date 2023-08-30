@@ -2,7 +2,7 @@ import { validate, ValidationError } from "class-validator";
 import { AppError } from "./get-error";
 
 class DataValidator {
-  async validateData(data: Object): Promise<void> {
+  async validateData(data: Object): Promise<AppError> {
 
     const errors = await validate(data);
 
@@ -12,7 +12,7 @@ class DataValidator {
       );
       throw new AppError("Validation failed", validationErrors);
     }
-
+    return null;
   }
 }
 
