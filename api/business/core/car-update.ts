@@ -19,7 +19,6 @@ export class carUpdate {
 
     // Retrieve the existing car by ID
     const existingCar = await this.carAdapter.findById(id);
-    console.log(existingCar, '------ existing car CARUPDATE')
 
     if (!existingCar) {
       throw new AppError("Car not found", ["Car with provided ID not found"], 404);

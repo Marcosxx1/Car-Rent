@@ -106,10 +106,121 @@ describe("Car Create", () => {
 })
  */
 
+
+//Usando mocks 
+
+describe('CarCreate', () => {
+  let carCreate: CarCreate;
+  let carRepository: jest.Mocked<CarRepositoryInMemoryAdapter>;
+
+  beforeEach(() => {
+    carRepository = {
+      cars: [],
+      create: jest.fn(),
+      update: jest.fn(),
+      delete: jest.fn(),
+      list: jest.fn(),
+      findByLicensePlate: jest.fn(),
+      findAvailable: jest.fn(),
+      findById: jest.fn(),
+      updateAvailable: jest.fn(),
+    };
+    carCreate = new CarCreate(carRepository);
+  });
+
+  it('should create a car successfully', async () => {
+    const carData = {
+      name: "Car Available",
+      description: "Car description",
+      daily_rate: 100,
+      license_plate: "ABC-1234",
+      fine_amount: 60,
+      brand: "Car brand",
+      category_id: "category_id",
+      available: false
+    };
+
+    carRepository.findByLicensePlate.mockResolvedValue(null);
+    carRepository.create.mockResolvedValue(carData);
+
+    const createdCar = await carCreate.execute(carData);
+
+    expect(createdCar).toEqual(carData);
+    expect(carRepository.findByLicensePlate).toHaveBeenCalledWith(carData.license_plate);
+    expect(carRepository.create).toHaveBeenCalledWith(carData);
+  });
+
+  it('should throw AppError if car already exists', async () => {
+    const existingCarData = {
+      name: "Car Available",
+      description: "Car description",
+      daily_rate: 100,
+      license_plate: "ABC-1234",
+      fine_amount: 60,
+      brand: "Car brand",
+      category_id: "category_id",
+      available: false
+    };
+
+    carRepository.findByLicensePlate.mockResolvedValue(existingCarData);
+
+    await expect(carCreate.execute(existingCarData)).rejects.toThrowError(AppError);
+    expect(carRepository.findByLicensePlate).toHaveBeenCalledWith(existingCarData.license_plate);
+    expect(carRepository.create).not.toHaveBeenCalled();
+  });
+
+  it('should call DataValidator.validateData', async () => {
+    const carData = {
+      name: "Car Available",
+      description: "Car description",
+      daily_rate: 100,
+      license_plate: "ABC-1234",
+      fine_amount: 60,
+      brand: "Car brand",
+      category_id: "category_id",
+      available: false
+    };
+
+    const validateDataSpy = jest.spyOn(DataValidator.prototype, 'validateData');
+
+    await carCreate.execute(carData);
+
+    expect(validateDataSpy).toHaveBeenCalledWith(carData);
+    expect(validateDataSpy).toHaveBeenCalledTimes(1);
+
+    validateDataSpy.mockRestore();
+  });
+
+  it('should call carAdapter.findByLicensePlate', async () => {
+    const carData = {
+      name: "Car Available",
+      description: "Car description",
+      daily_rate: 100,
+      license_plate: "ABC-1234",
+      fine_amount: 60,
+      brand: "Car brand",
+      category_id: "category_id",
+      available: false
+    };
+
+    carRepository.findByLicensePlate.mockResolvedValue(null);
+    carRepository.create.mockResolvedValue(carData);
+
+    await carCreate.execute(carData);
+
+    expect(carRepository.findByLicensePlate).toHaveBeenCalledWith(carData.license_plate);
+    expect(carRepository.findByLicensePlate).toHaveBeenCalledTimes(1);
+  });
+});
+
+
+
+
 import { AppError } from "../../../adapters/in/http/utils/get-error";
 import { DataValidator } from "../../../adapters/in/http/utils/validate-data";
 import { CarRepositoryInMemoryAdapter } from "../../../adapters/out/type-orm/postgres-adapter/in-memory/car-repository-adapter-in-memory";
 import { CarCreate } from "../car-create";
+
 
 
 describe('CarCreate', () => {
@@ -136,7 +247,6 @@ describe('CarCreate', () => {
     const createdCar = await carCreate.execute(carData);
 
     expect(createdCar).toBeDefined();
-    // Add more assertions if needed
   });
 
   it('should throw AppError if car already exists', async () => {
